@@ -1,3 +1,64 @@
+# class component
+import React, {Component} from 'react';
+
+const getMessageD = (msg) => {
+    return msg.split('').reverse().join('')
+} 
+
+export default class PromiseComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {msg: "Hello"};
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('props', props);
+          return {
+            messageD: getMessageD(state.msg),
+          };
+    }
+
+    onChange= (event) => {
+        console.log(event);
+        this.setState({msg: event.target.value})
+    }
+    getMessage= () => {
+        return this.state.msg
+    }
+    componentWillUpdate() {
+        console.log('componentWillUpdate');
+    }
+    
+    shouldComponentUpdate(prePr, preSt) {
+        if(this.state.msg != preSt.msg) {
+            this.setState({msg: "Hello"});
+        }
+        this.openFile()
+        
+        return true;
+    }
+
+    openFile = () =>{
+        console.log('open file');
+    }
+   
+    render() {
+        return (
+            <div>
+                <span>{ this.getMessage()}</span>
+                <input value={this.state.msg}  onChange={(text) => this.onChange(text)}/>
+                <span>{ this.state.messageD}</span>
+            </div>
+        );
+    }
+
+    componentDidUpdate(prePr, preSt) {
+    }
+
+    
+}
+
+
 # reactjs
 
 {
